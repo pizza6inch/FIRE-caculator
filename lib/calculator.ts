@@ -163,7 +163,7 @@ export function formatCurrency(amount: number): string {
  * 預設參數
  */
 export const defaultInputs: CalculatorInputs = {
-  monthlyExpenses: 50000, // 每月生活費 5 萬
+  monthlyExpenses: 25000, // 每月生活費 2.5 萬
   currentAssets: 1000000, // 目前資產 100 萬
   monthlyInvestment: 20000, // 每月投資 2 萬
   annualReturnRate: 7, // 年化報酬率 7%
