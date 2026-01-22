@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
-
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -21,21 +19,34 @@ const WORK_PROPORTION = WORK_HOURS / HOURS_PER_DAY;
 const SLEEP_PROPORTION = SLEEP_HOURS / HOURS_PER_DAY;
 const FREE_PROPORTION = FREE_HOURS / HOURS_PER_DAY;
 
+// Retirement age
+const WORK_END_AGE = 65;
+
 export function LifeWeeksGrid() {
   const [age, setAge] = useState(30);
 
   const calculations = useMemo(() => {
     const validAge = Math.max(0, Math.min(age, LIFE_EXPECTANCY));
     const weeksLived = validAge * WEEKS_PER_YEAR;
+
     const remainingWeeks = Math.max(
       0,
       (LIFE_EXPECTANCY - validAge) * WEEKS_PER_YEAR,
     );
 
-    // Calculate proportional weeks for remaining time
-    const workWeeks = Math.round(remainingWeeks * WORK_PROPORTION);
+    // Weeks until retirement
+    const weeksUntilRetirement =
+      Math.max(0, Math.min(WORK_END_AGE, LIFE_EXPECTANCY) - validAge) *
+      WEEKS_PER_YEAR;
+
+    // Work only until 65
+    const workWeeks = Math.round(weeksUntilRetirement * WORK_PROPORTION);
+
+    // Sleep for all remaining weeks
     const sleepWeeks = Math.round(remainingWeeks * SLEEP_PROPORTION);
-    const freeWeeks = Math.round(remainingWeeks * FREE_PROPORTION);
+
+    // Free weeks = remaining - work - sleep
+    const freeWeeks = Math.round(remainingWeeks - workWeeks - sleepWeeks);
 
     return {
       weeksLived,
@@ -59,23 +70,23 @@ export function LifeWeeksGrid() {
   // Generate grid dots
   const dots = useMemo(() => {
     const result = [];
-    const { weeksLived, workWeeks, sleepWeeks } = calculations;
+    const { weeksLived, workWeeks, sleepWeeks, freeWeeks } = calculations;
 
     for (let i = 0; i < TOTAL_WEEKS; i++) {
       let colorClass = "";
       const isCurrentWeek = i === weeksLived;
 
       if (i < weeksLived) {
-        // Past weeks - gray
+        // Past weeks
         colorClass = "bg-foreground/20";
       } else if (i < weeksLived + workWeeks) {
-        // Work weeks - blue
+        // Work weeks until 65
         colorClass = "bg-blue-500";
       } else if (i < weeksLived + workWeeks + sleepWeeks) {
-        // Sleep weeks - dark gray
+        // Sleep weeks
         colorClass = "bg-foreground/40";
       } else {
-        // Free weeks - green
+        // Free weeks
         colorClass = "bg-emerald-500";
       }
 
@@ -87,6 +98,7 @@ export function LifeWeeksGrid() {
         />,
       );
     }
+
     return result;
   }, [calculations]);
 
@@ -183,7 +195,7 @@ export function LifeWeeksGrid() {
       <div className="rounded-lg border border-border bg-card p-6">
         <div className="mb-6 text-center">
           <p className="mb-2 text-lg text-foreground">
-            每天 24 小時中，8 小時工作、8 小時睡覺。
+            每天 24 小時中，8 小時工作（到 65 歲）、8 小時睡覺。
           </p>
           <p className="text-muted-foreground">
             只剩下{" "}
@@ -194,8 +206,8 @@ export function LifeWeeksGrid() {
 
         <div className="mb-6 rounded-lg bg-emerald-500/5 p-4">
           <p className="mb-3 text-center font-medium text-foreground">
-            這 {calculations.freeWeeks.toLocaleString()}{" "}
-            週的自由時間，你本可以：
+            這 {calculations.workWeeks.toLocaleString()}{" "}
+            週的工作時間，你本可以：
           </p>
           <ul className="mx-auto max-w-md space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
@@ -219,14 +231,14 @@ export function LifeWeeksGrid() {
 
         <div className="text-center">
           <p className="mb-2 text-foreground">
-            財富自由的意義，就是讓
+            財富自由的意義，就是讓{" "}
             <span className="font-semibold text-emerald-600">
               綠色的部分變多
             </span>
             。
           </p>
           <p className="text-sm text-muted-foreground">
-            把工作從「生存必須」變成「自由選擇」， 把每天的 8 小時還給自己。
+            把工作從「生存必須」變成「自由選擇」，把每天的 8 小時還給自己。
           </p>
         </div>
       </div>
