@@ -1,28 +1,32 @@
-"use client"
+"use client";
 
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Slider } from "@/components/ui/slider"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import type { CalculatorInputs } from "@/lib/calculator"
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import type { CalculatorInputs } from "@/lib/calculator";
 
 interface CalculatorFormProps {
-  inputs: CalculatorInputs
-  onChange: (inputs: CalculatorInputs) => void
+  inputs: CalculatorInputs;
+  onChange: (inputs: CalculatorInputs) => void;
 }
 
 export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
   const handleChange = (field: keyof CalculatorInputs, value: number) => {
-    onChange({ ...inputs, [field]: value })
-  }
+    onChange({ ...inputs, [field]: value });
+  };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>輸入你的財務數據</CardTitle>
-        <CardDescription>
-          調整下方參數，計算你的財富自由之路
-        </CardDescription>
+        <CardDescription>調整下方參數，計算你的財富自由之路</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* 每月生活費 */}
@@ -37,7 +41,9 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
             id="monthlyExpenses"
             type="number"
             value={inputs.monthlyExpenses}
-            onChange={(e) => handleChange("monthlyExpenses", Number(e.target.value))}
+            onChange={(e) =>
+              handleChange("monthlyExpenses", Number(e.target.value))
+            }
             min={0}
             step={1000}
           />
@@ -66,7 +72,9 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
             id="currentAssets"
             type="number"
             value={inputs.currentAssets}
-            onChange={(e) => handleChange("currentAssets", Number(e.target.value))}
+            onChange={(e) =>
+              handleChange("currentAssets", Number(e.target.value))
+            }
             min={0}
             step={10000}
           />
@@ -95,21 +103,23 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
             id="monthlyInvestment"
             type="number"
             value={inputs.monthlyInvestment}
-            onChange={(e) => handleChange("monthlyInvestment", Number(e.target.value))}
+            onChange={(e) =>
+              handleChange("monthlyInvestment", Number(e.target.value))
+            }
             min={0}
             step={1000}
           />
           <Slider
             value={[inputs.monthlyInvestment]}
-            onValueChange={([value]) => handleChange("monthlyInvestment", value)}
+            onValueChange={([value]) =>
+              handleChange("monthlyInvestment", value)
+            }
             min={0}
             max={100000}
             step={1000}
             className="mt-2"
           />
-          <p className="text-xs text-muted-foreground">
-            每個月固定投入的金額
-          </p>
+          <p className="text-xs text-muted-foreground">每個月固定投入的金額</p>
         </div>
 
         {/* 年化報酬率 */}
@@ -128,7 +138,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
             step={0.5}
           />
           <p className="text-xs text-muted-foreground">
-            長期股市平均約 5-7%，保守建議使用 5%
+            長期股市平均約 7-10%，保守建議使用 7%
           </p>
         </div>
 
@@ -147,9 +157,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
             max={50}
             step={1}
           />
-          <p className="text-xs text-muted-foreground">
-            預計持續投資的時間
-          </p>
+          <p className="text-xs text-muted-foreground">預計持續投資的時間</p>
         </div>
 
         {/* 提領率 */}
@@ -173,5 +181,5 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

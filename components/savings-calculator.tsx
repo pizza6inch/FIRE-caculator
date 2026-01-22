@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 import {
   Table,
   TableBody,
@@ -12,42 +18,42 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { calculateSavingsTable, formatCurrency } from "@/lib/calculator"
-import { Info } from "lucide-react"
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { calculateSavingsTable, formatCurrency } from "@/lib/calculator";
+import { Info } from "lucide-react";
 
 export function SavingsCalculator() {
-  const [fiTarget, setFiTarget] = useState(15000000) // 1500 萬
-  const [currentAssets, setCurrentAssets] = useState(1000000) // 100 萬
-  const [annualReturnRate, setAnnualReturnRate] = useState(5)
-  const [targetYears, setTargetYears] = useState(15)
+  const [fiTarget, setFiTarget] = useState(15000000); // 1500 萬
+  const [currentAssets, setCurrentAssets] = useState(1000000); // 100 萬
+  const [annualReturnRate, setAnnualReturnRate] = useState(7);
+  const [targetYears, setTargetYears] = useState(15);
 
   const savingsTable = useMemo(() => {
-    return calculateSavingsTable(fiTarget, currentAssets, annualReturnRate)
-  }, [fiTarget, currentAssets, annualReturnRate])
+    return calculateSavingsTable(fiTarget, currentAssets, annualReturnRate);
+  }, [fiTarget, currentAssets, annualReturnRate]);
 
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('zh-TW').format(num)
-  }
+    return new Intl.NumberFormat("zh-TW").format(num);
+  };
 
   const handleFiTargetChange = (value: string) => {
-    const num = Number.parseInt(value.replace(/,/g, ''), 10)
+    const num = Number.parseInt(value.replace(/,/g, ""), 10);
     if (!Number.isNaN(num)) {
-      setFiTarget(num)
-    } else if (value === '') {
-      setFiTarget(0)
+      setFiTarget(num);
+    } else if (value === "") {
+      setFiTarget(0);
     }
-  }
+  };
 
   const handleCurrentAssetsChange = (value: string) => {
-    const num = Number.parseInt(value.replace(/,/g, ''), 10)
+    const num = Number.parseInt(value.replace(/,/g, ""), 10);
     if (!Number.isNaN(num)) {
-      setCurrentAssets(num)
-    } else if (value === '') {
-      setCurrentAssets(0)
+      setCurrentAssets(num);
+    } else if (value === "") {
+      setCurrentAssets(0);
     }
-  }
+  };
 
   return (
     <div className="space-y-8">
@@ -150,11 +156,15 @@ export function SavingsCalculator() {
               <p className="text-muted-foreground">
                 你需要每月存{" "}
                 <span className="font-semibold text-foreground">
-                  {formatCurrency(savingsTable[targetYears - 1]?.monthlyRequired || 0)}
+                  {formatCurrency(
+                    savingsTable[targetYears - 1]?.monthlyRequired || 0,
+                  )}
                 </span>
                 ，相當於每天{" "}
                 <span className="font-semibold text-foreground">
-                  {formatCurrency(savingsTable[targetYears - 1]?.dailyRequired || 0)}
+                  {formatCurrency(
+                    savingsTable[targetYears - 1]?.dailyRequired || 0,
+                  )}
                 </span>
               </p>
             </div>
@@ -184,21 +194,20 @@ export function SavingsCalculator() {
               </TableHeader>
               <TableBody>
                 {savingsTable.map((row) => {
-                  const isTarget = row.years === targetYears
+                  const isTarget = row.years === targetYears;
                   return (
                     <TableRow
                       key={row.years}
-                      className={
-                        isTarget
-                          ? "bg-accent/10 font-medium"
-                          : ""
-                      }
+                      className={isTarget ? "bg-accent/10 font-medium" : ""}
                     >
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {row.years}
                           {isTarget && (
-                            <Badge variant="secondary" className="bg-accent text-accent-foreground">
+                            <Badge
+                              variant="secondary"
+                              className="bg-accent text-accent-foreground"
+                            >
                               目標
                             </Badge>
                           )}
@@ -217,7 +226,7 @@ export function SavingsCalculator() {
                         {formatCurrency(row.dailyRequired)}
                       </TableCell>
                     </TableRow>
-                  )
+                  );
                 })}
               </TableBody>
             </Table>
@@ -225,5 +234,5 @@ export function SavingsCalculator() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

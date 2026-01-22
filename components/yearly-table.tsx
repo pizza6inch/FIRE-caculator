@@ -1,6 +1,12 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -8,14 +14,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import type { YearlyData } from "@/lib/calculator"
-import { formatCurrency } from "@/lib/calculator"
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import type { YearlyData } from "@/lib/calculator";
+import { formatCurrency } from "@/lib/calculator";
 
 interface YearlyTableProps {
-  data: YearlyData[]
-  fiNumber: number
+  data: YearlyData[];
+  fiNumber: number;
 }
 
 export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
@@ -23,9 +29,7 @@ export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
     <Card>
       <CardHeader>
         <CardTitle>年度資產成長表</CardTitle>
-        <CardDescription>
-          逐年追蹤你的資產成長軌跡
-        </CardDescription>
+        <CardDescription>逐年追蹤你的資產成長軌跡</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -42,9 +46,9 @@ export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
             </TableHeader>
             <TableBody>
               {data.map((row) => {
-                const isFI = row.endAssets >= fiNumber
+                const isFI = row.endAssets >= fiNumber;
                 return (
-                  <TableRow 
+                  <TableRow
                     key={row.year}
                     className={isFI ? "bg-accent/5" : ""}
                   >
@@ -65,7 +69,10 @@ export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
                     </TableCell>
                     <TableCell className="text-center">
                       {isFI ? (
-                        <Badge variant="default" className="bg-accent text-accent-foreground">
+                        <Badge
+                          variant="default"
+                          className="bg-accent text-accent-foreground"
+                        >
                           達標
                         </Badge>
                       ) : (
@@ -75,12 +82,12 @@ export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
                       )}
                     </TableCell>
                   </TableRow>
-                )
+                );
               })}
             </TableBody>
           </Table>
         </div>
-        
+
         <div className="mt-4 rounded-lg bg-muted p-3 text-sm text-muted-foreground">
           <p>
             <strong>說明：</strong>年報酬 = 年末資產 - 年初資產 - 年投入。
@@ -89,5 +96,5 @@ export function YearlyTable({ data, fiNumber }: YearlyTableProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

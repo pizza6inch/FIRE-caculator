@@ -1,24 +1,24 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { LifeWeeksGrid } from "@/components/life-weeks-grid"
-import { 
-  Calculator, 
-  TrendingUp, 
-  Clock, 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { LifeWeeksGrid } from "@/components/life-weeks-grid";
+import {
+  Calculator,
+  TrendingUp,
+  Clock,
   Target,
   ArrowRight,
   CheckCircle2,
-  AlertTriangle
-} from "lucide-react"
+  AlertTriangle,
+} from "lucide-react";
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 md:py-32">
@@ -42,7 +42,12 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild className="h-12 px-8 bg-transparent">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  asChild
+                  className="h-12 px-8 bg-transparent"
+                >
                   <Link href="/methodology">了解計算原理</Link>
                 </Button>
               </div>
@@ -73,7 +78,7 @@ export default function HomePage() {
                       被動收入 ≥ 生活支出
                     </p>
                   </div>
-                  
+
                   <div className="grid gap-6 md:grid-cols-2">
                     <div className="flex gap-4">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
@@ -132,9 +137,7 @@ export default function HomePage() {
                 </p>
 
                 <div className="rounded-lg bg-muted p-6">
-                  <p className="mb-4 font-medium text-foreground">
-                    你本可以：
-                  </p>
+                  <p className="mb-4 font-medium text-foreground">你本可以：</p>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-accent">-</span>
@@ -185,7 +188,11 @@ export default function HomePage() {
                     財富自由不是不工作。
                   </p>
                   <p className="mt-2">
-                    而是讓工作<span className="font-medium text-foreground">回到選擇，而非生存</span>。
+                    而是讓工作
+                    <span className="font-medium text-foreground">
+                      回到選擇，而非生存
+                    </span>
+                    。
                   </p>
                 </div>
               </div>
@@ -306,7 +313,7 @@ export default function HomePage() {
                   </Link>
                 </Button>
               </div>
-              
+
               <div className="rounded-lg border border-border bg-background p-8">
                 <h3 className="mb-6 text-center text-lg font-semibold text-foreground">
                   財富自由公式
@@ -325,10 +332,10 @@ export default function HomePage() {
                       舉例
                     </p>
                     <p className="font-mono text-foreground">
-                      {'月支出 5 萬 → 年支出 60 萬'}
+                      {"月支出 5 萬 → 年支出 60 萬"}
                     </p>
                     <p className="font-mono text-foreground">
-                      {'60 萬 ÷ 4% = 1,500 萬'}
+                      {"60 萬 ÷ 4% = 1,500 萬"}
                     </p>
                   </div>
                   <p className="text-center text-sm text-muted-foreground">
@@ -363,5 +370,5 @@ export default function HomePage() {
 
       <SiteFooter />
     </div>
-  )
+  );
 }

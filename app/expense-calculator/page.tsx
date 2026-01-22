@@ -1,12 +1,13 @@
-import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { ExpenseCalculator } from "@/components/expense-calculator"
+import type { Metadata } from "next";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { ExpenseCalculator } from "@/components/expense-calculator";
 
 export const metadata: Metadata = {
   title: "支出計算器 | 財富自由計算器",
-  description: "系統性盤點你的各項支出，計算年度總支出，並依據提領率計算你的財富自由目標金額。",
-}
+  description:
+    "系統性盤點你的各項支出，計算年度總支出，並依據提領率計算你的財富自由目標金額。",
+};
 
 export default function ExpenseCalculatorPage() {
   return (
@@ -32,5 +33,5 @@ export default function ExpenseCalculatorPage() {
       </main>
       <SiteFooter />
     </div>
-  )
+  );
 }

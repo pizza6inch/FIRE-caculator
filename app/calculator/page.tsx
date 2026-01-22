@@ -1,22 +1,26 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { CalculatorForm } from "@/components/calculator-form"
-import { CalculatorResult } from "@/components/calculator-result"
-import { YearlyTable } from "@/components/yearly-table"
-import { calculate, defaultInputs, type CalculatorInputs } from "@/lib/calculator"
+import { useState, useMemo } from "react";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { CalculatorForm } from "@/components/calculator-form";
+import { CalculatorResult } from "@/components/calculator-result";
+import { YearlyTable } from "@/components/yearly-table";
+import {
+  calculate,
+  defaultInputs,
+  type CalculatorInputs,
+} from "@/lib/calculator";
 
 export default function CalculatorPage() {
-  const [inputs, setInputs] = useState<CalculatorInputs>(defaultInputs)
+  const [inputs, setInputs] = useState<CalculatorInputs>(defaultInputs);
 
-  const result = useMemo(() => calculate(inputs), [inputs])
+  const result = useMemo(() => calculate(inputs), [inputs]);
 
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      
+
       <main className="flex-1 py-8 md:py-12">
         <div className="mx-auto max-w-6xl px-4">
           {/* Page Header */}
@@ -51,5 +55,5 @@ export default function CalculatorPage() {
 
       <SiteFooter />
     </div>
-  )
+  );
 }

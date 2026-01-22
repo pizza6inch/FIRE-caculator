@@ -1,15 +1,15 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { Calculator, ArrowRight } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { Calculator, ArrowRight } from "lucide-react";
 
 export default function MethodologyPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      
+
       <main className="flex-1 py-12 md:py-16">
         <div className="mx-auto max-w-4xl px-4">
           {/* Page Header */}
@@ -30,8 +30,11 @@ export default function MethodologyPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="leading-relaxed text-muted-foreground">
-                  4% 法則源自於美國三一大學（Trinity Study）的研究，這項研究分析了1926年至1995年間的歷史數據，
-                  發現如果退休者每年從投資組合中提領不超過 4%，則有非常高的機率可以維持 30 年以上的退休生活而不會把錢花完。
+                  4% 法則源自於美國三一大學（Trinity
+                  Study）的研究，這項研究分析了1926年至1995年間的歷史數據，
+                  發現如果退休者每年從投資組合中提領不超過
+                  4%，則有非常高的機率可以維持 30
+                  年以上的退休生活而不會把錢花完。
                 </p>
                 <div className="rounded-lg bg-muted p-4">
                   <p className="mb-2 text-sm font-medium text-muted-foreground">
@@ -68,7 +71,9 @@ export default function MethodologyPage() {
                   預留一些緩衝空間。
                 </p>
                 <div className="rounded-lg border border-border p-4">
-                  <h4 className="mb-2 font-medium text-foreground">建議納入的支出項目：</h4>
+                  <h4 className="mb-2 font-medium text-foreground">
+                    建議納入的支出項目：
+                  </h4>
                   <ul className="grid gap-1 text-sm text-muted-foreground sm:grid-cols-2">
                     <li>• 房租或房貸</li>
                     <li>• 水電瓦斯網路</li>
@@ -120,30 +125,42 @@ export default function MethodologyPage() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-border">
-                        <th className="pb-3 text-left font-medium text-foreground">參數</th>
-                        <th className="pb-3 text-left font-medium text-foreground">預設值</th>
-                        <th className="pb-3 text-left font-medium text-foreground">說明</th>
+                        <th className="pb-3 text-left font-medium text-foreground">
+                          參數
+                        </th>
+                        <th className="pb-3 text-left font-medium text-foreground">
+                          預設值
+                        </th>
+                        <th className="pb-3 text-left font-medium text-foreground">
+                          說明
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="text-muted-foreground">
                       <tr className="border-b border-border">
-                        <td className="py-3 font-medium text-foreground">年化報酬率</td>
-                        <td className="py-3">5%</td>
+                        <td className="py-3 font-medium text-foreground">
+                          年化報酬率
+                        </td>
+                        <td className="py-3">7%</td>
                         <td className="py-3">
-                          保守估計的長期股市報酬率。歷史上全球股市長期平均約 7-8%，
-                          但考慮通膨後實質報酬率約 5%。
+                          保守估計的長期股市報酬率。歷史上全球股市長期平均約
+                          7-10%， 但考慮通膨後實質報酬率約 7%。
                         </td>
                       </tr>
                       <tr className="border-b border-border">
-                        <td className="py-3 font-medium text-foreground">提領率</td>
+                        <td className="py-3 font-medium text-foreground">
+                          提領率
+                        </td>
                         <td className="py-3">4%</td>
                         <td className="py-3">
-                          基於三一大學研究的建議提領率。較保守的投資者可使用 3.5%，
-                          較積極者可使用 4.5%。
+                          基於三一大學研究的建議提領率。較保守的投資者可使用
+                          3.5%， 較積極者可使用 4.5%。
                         </td>
                       </tr>
                       <tr>
-                        <td className="py-3 font-medium text-foreground">投資年數</td>
+                        <td className="py-3 font-medium text-foreground">
+                          投資年數
+                        </td>
                         <td className="py-3">20 年</td>
                         <td className="py-3">
                           一般建議的長期投資時間框架。時間越長，複利效果越明顯。
@@ -173,7 +190,7 @@ export default function MethodologyPage() {
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                     <span>
                       <strong className="text-foreground">考慮通膨：</strong>
-                      5% 的報酬率已經是考慮通膨後的實質報酬率估計。
+                      7% 的報酬率已經是考慮通膨後的實質報酬率估計。
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -213,5 +230,5 @@ export default function MethodologyPage() {
 
       <SiteFooter />
     </div>
-  )
+  );
 }

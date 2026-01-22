@@ -1,16 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { Button } from "@/components/ui/button"
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   expenseTemplate,
   calculateCategorySubtotal,
@@ -19,8 +25,8 @@ import {
   formatCurrency,
   type ExpenseCategory,
   type ExpenseItem,
-} from "@/lib/calculator"
-import { ChevronDown, ChevronRight, Calculator, Target } from "lucide-react"
+} from "@/lib/calculator";
+import { ChevronDown, ChevronRight, Calculator, Target } from "lucide-react";
 
 export function ExpenseCalculator() {
   const [categories, setCategories] = useState<ExpenseCategory[]>(() =>
@@ -28,85 +34,89 @@ export function ExpenseCalculator() {
       ...cat,
       items: cat.items.map((item) => ({ ...item })),
       yearlySubtotal: 0,
-    }))
-  )
-  const [targetYears, setTargetYears] = useState(25)
+    })),
+  );
+  const [targetYears, setTargetYears] = useState(25);
   const [openCategories, setOpenCategories] = useState<Set<string>>(
-    new Set(expenseTemplate.map((c) => c.id))
-  )
+    new Set(expenseTemplate.map((c) => c.id)),
+  );
 
   const totalAnnualExpenses = useMemo(() => {
-    return calculateTotalAnnualExpenses(categories)
-  }, [categories])
+    return calculateTotalAnnualExpenses(categories);
+  }, [categories]);
 
   const fiTarget = useMemo(() => {
-    return calculateFITargetFromExpenses(totalAnnualExpenses, targetYears)
-  }, [totalAnnualExpenses, targetYears])
+    return calculateFITargetFromExpenses(totalAnnualExpenses, targetYears);
+  }, [totalAnnualExpenses, targetYears]);
 
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('zh-TW').format(num)
-  }
+    return new Intl.NumberFormat("zh-TW").format(num);
+  };
 
   const toggleCategory = (categoryId: string) => {
     setOpenCategories((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (next.has(categoryId)) {
-        next.delete(categoryId)
+        next.delete(categoryId);
       } else {
-        next.add(categoryId)
+        next.add(categoryId);
       }
-      return next
-    })
-  }
+      return next;
+    });
+  };
 
   const updateItemAmount = (
     categoryId: string,
     itemId: string,
-    field: 'monthly' | 'yearly',
-    value: string
+    field: "monthly" | "yearly",
+    value: string,
   ) => {
-    const num = Number.parseInt(value.replace(/,/g, ''), 10)
-    const amount = Number.isNaN(num) ? 0 : num
+    const num = Number.parseInt(value.replace(/,/g, ""), 10);
+    const amount = Number.isNaN(num) ? 0 : num;
 
     setCategories((prev) =>
       prev.map((cat) => {
-        if (cat.id !== categoryId) return cat
+        if (cat.id !== categoryId) return cat;
 
         const updatedItems = cat.items.map((item) => {
-          if (item.id !== itemId) return item
+          if (item.id !== itemId) return item;
 
-          if (field === 'monthly') {
+          if (field === "monthly") {
             return {
               ...item,
               monthlyAmount: amount,
               yearlyAmount: amount * 12,
-            }
+            };
           }
           return {
             ...item,
             yearlyAmount: amount,
             monthlyAmount: Math.round(amount / 12),
-          }
-        })
+          };
+        });
 
         return {
           ...cat,
           items: updatedItems,
           yearlySubtotal: calculateCategorySubtotal(updatedItems),
-        }
-      })
-    )
-  }
+        };
+      }),
+    );
+  };
 
   const resetAll = () => {
     setCategories(
       expenseTemplate.map((cat) => ({
         ...cat,
-        items: cat.items.map((item) => ({ ...item, monthlyAmount: 0, yearlyAmount: 0 })),
+        items: cat.items.map((item) => ({
+          ...item,
+          monthlyAmount: 0,
+          yearlyAmount: 0,
+        })),
         yearlySubtotal: 0,
-      }))
-    )
-  }
+      })),
+    );
+  };
 
   return (
     <div className="space-y-8">
@@ -142,7 +152,9 @@ export function ExpenseCalculator() {
                         <ChevronRight className="h-5 w-5 text-muted-foreground" />
                       )}
                       <div>
-                        <CardTitle className="text-lg">{category.nameZh}</CardTitle>
+                        <CardTitle className="text-lg">
+                          {category.nameZh}
+                        </CardTitle>
                         <CardDescription>{category.name}</CardDescription>
                       </div>
                     </div>
@@ -164,28 +176,54 @@ export function ExpenseCalculator() {
                         className="grid grid-cols-1 gap-4 border-b border-border pb-4 last:border-0 last:pb-0 md:grid-cols-[1fr,150px,150px]"
                       >
                         <div className="flex flex-col justify-center">
-                          <p className="font-medium text-foreground">{item.nameZh}</p>
-                          <p className="text-sm text-muted-foreground">{item.name}</p>
+                          <p className="font-medium text-foreground">
+                            {item.nameZh}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {item.name}
+                          </p>
                         </div>
                         <div className="space-y-1">
-                          <Label className="text-xs text-muted-foreground">月花費</Label>
+                          <Label className="text-xs text-muted-foreground">
+                            月花費
+                          </Label>
                           <Input
                             type="text"
-                            value={item.monthlyAmount === 0 ? '' : formatNumber(item.monthlyAmount)}
+                            value={
+                              item.monthlyAmount === 0
+                                ? ""
+                                : formatNumber(item.monthlyAmount)
+                            }
                             onChange={(e) =>
-                              updateItemAmount(category.id, item.id, 'monthly', e.target.value)
+                              updateItemAmount(
+                                category.id,
+                                item.id,
+                                "monthly",
+                                e.target.value,
+                              )
                             }
                             placeholder="0"
                             className="text-right font-mono"
                           />
                         </div>
                         <div className="space-y-1">
-                          <Label className="text-xs text-muted-foreground">年花費</Label>
+                          <Label className="text-xs text-muted-foreground">
+                            年花費
+                          </Label>
                           <Input
                             type="text"
-                            value={item.yearlyAmount === 0 ? '' : formatNumber(item.yearlyAmount)}
+                            value={
+                              item.yearlyAmount === 0
+                                ? ""
+                                : formatNumber(item.yearlyAmount)
+                            }
                             onChange={(e) =>
-                              updateItemAmount(category.id, item.id, 'yearly', e.target.value)
+                              updateItemAmount(
+                                category.id,
+                                item.id,
+                                "yearly",
+                                e.target.value,
+                              )
                             }
                             placeholder="0"
                             className="text-right font-mono"
@@ -213,7 +251,9 @@ export function ExpenseCalculator() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label>目標年數</Label>
-              <span className="text-lg font-medium text-accent">{targetYears} 年</span>
+              <span className="text-lg font-medium text-accent">
+                {targetYears} 年
+              </span>
             </div>
             <Slider
               value={[targetYears]}
@@ -242,12 +282,17 @@ export function ExpenseCalculator() {
           <div className="space-y-6">
             {/* Category Breakdown */}
             <div className="space-y-3">
-              <p className="text-sm font-medium text-muted-foreground">各分類年度支出</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                各分類年度支出
+              </p>
               <div className="grid gap-2">
                 {categories
                   .filter((cat) => cat.yearlySubtotal > 0)
                   .map((cat) => (
-                    <div key={cat.id} className="flex items-center justify-between text-sm">
+                    <div
+                      key={cat.id}
+                      className="flex items-center justify-between text-sm"
+                    >
                       <span className="text-foreground">{cat.nameZh}</span>
                       <span className="font-mono text-muted-foreground">
                         {formatCurrency(cat.yearlySubtotal)}
@@ -295,12 +340,16 @@ export function ExpenseCalculator() {
             </div>
 
             {/* Reset Button */}
-            <Button variant="outline" onClick={resetAll} className="w-full bg-transparent">
+            <Button
+              variant="outline"
+              onClick={resetAll}
+              className="w-full bg-transparent"
+            >
               重置所有數值
             </Button>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

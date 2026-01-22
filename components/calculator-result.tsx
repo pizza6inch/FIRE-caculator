@@ -1,13 +1,25 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle2, XCircle, Target, TrendingUp, Calendar } from "lucide-react"
-import type { CalculationResult } from "@/lib/calculator"
-import { formatCurrency } from "@/lib/calculator"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  CheckCircle2,
+  XCircle,
+  Target,
+  TrendingUp,
+  Calendar,
+} from "lucide-react";
+import type { CalculationResult } from "@/lib/calculator";
+import { formatCurrency } from "@/lib/calculator";
 
 interface CalculatorResultProps {
-  result: CalculationResult
+  result: CalculationResult;
 }
 
 export function CalculatorResult({ result }: CalculatorResultProps) {
@@ -17,18 +29,17 @@ export function CalculatorResult({ result }: CalculatorResultProps) {
         <CardTitle className="flex items-center gap-2">
           計算結果
           {result.isAchievable ? (
-            <Badge variant="default" className="bg-accent text-accent-foreground">
+            <Badge
+              variant="default"
+              className="bg-accent text-accent-foreground"
+            >
               可達成
             </Badge>
           ) : (
-            <Badge variant="secondary">
-              需要更多時間
-            </Badge>
+            <Badge variant="secondary">需要更多時間</Badge>
           )}
         </CardTitle>
-        <CardDescription>
-          根據你的數據，這是你的財富自由計畫
-        </CardDescription>
+        <CardDescription>根據你的數據，這是你的財富自由計畫</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* 主要結果 */}
@@ -61,11 +72,13 @@ export function CalculatorResult({ result }: CalculatorResultProps) {
         </div>
 
         {/* 達成狀態 */}
-        <div className={`rounded-lg p-4 ${
-          result.isAchievable 
-            ? "border border-accent/20 bg-accent/5" 
-            : "border border-border bg-muted/50"
-        }`}>
+        <div
+          className={`rounded-lg p-4 ${
+            result.isAchievable
+              ? "border border-accent/20 bg-accent/5"
+              : "border border-border bg-muted/50"
+          }`}
+        >
           <div className="flex items-start gap-3">
             {result.isAchievable ? (
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
@@ -74,12 +87,12 @@ export function CalculatorResult({ result }: CalculatorResultProps) {
             )}
             <div>
               <p className="font-medium text-foreground">
-                {result.isAchievable 
-                  ? "恭喜！你可以在設定的時間內達成財富自由" 
+                {result.isAchievable
+                  ? "恭喜！你可以在設定的時間內達成財富自由"
                   : "以目前的計畫，需要更長的時間才能達成"}
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                {result.isAchievable 
+                {result.isAchievable
                   ? `你的最終資產將超過目標 ${formatCurrency(result.finalAssets - result.fiNumber)}`
                   : `距離目標還差 ${formatCurrency(result.fiNumber - result.finalAssets)}`}
               </p>
@@ -99,7 +112,8 @@ export function CalculatorResult({ result }: CalculatorResultProps) {
                 "你已經財富自由了！"
               ) : (
                 <>
-                  約 <span className="text-accent">{result.yearsToFI}</span> 年後
+                  約 <span className="text-accent">{result.yearsToFI}</span>{" "}
+                  年後
                 </>
               )}
             </p>
@@ -121,5 +135,5 @@ export function CalculatorResult({ result }: CalculatorResultProps) {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

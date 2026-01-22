@@ -1,38 +1,41 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useState, useMemo } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState, useMemo } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-const LIFE_EXPECTANCY = 85
-const WEEKS_PER_YEAR = 52
-const TOTAL_WEEKS = LIFE_EXPECTANCY * WEEKS_PER_YEAR
+const LIFE_EXPECTANCY = 85;
+const WEEKS_PER_YEAR = 52;
+const TOTAL_WEEKS = LIFE_EXPECTANCY * WEEKS_PER_YEAR;
 
 // Time allocation per day
-const HOURS_PER_DAY = 24
-const WORK_HOURS = 8
-const SLEEP_HOURS = 8
-const FREE_HOURS = HOURS_PER_DAY - WORK_HOURS - SLEEP_HOURS
+const HOURS_PER_DAY = 24;
+const WORK_HOURS = 8;
+const SLEEP_HOURS = 8;
+const FREE_HOURS = HOURS_PER_DAY - WORK_HOURS - SLEEP_HOURS;
 
 // Proportions
-const WORK_PROPORTION = WORK_HOURS / HOURS_PER_DAY
-const SLEEP_PROPORTION = SLEEP_HOURS / HOURS_PER_DAY
-const FREE_PROPORTION = FREE_HOURS / HOURS_PER_DAY
+const WORK_PROPORTION = WORK_HOURS / HOURS_PER_DAY;
+const SLEEP_PROPORTION = SLEEP_HOURS / HOURS_PER_DAY;
+const FREE_PROPORTION = FREE_HOURS / HOURS_PER_DAY;
 
 export function LifeWeeksGrid() {
-  const [age, setAge] = useState(30)
+  const [age, setAge] = useState(30);
 
   const calculations = useMemo(() => {
-    const validAge = Math.max(0, Math.min(age, LIFE_EXPECTANCY))
-    const weeksLived = validAge * WEEKS_PER_YEAR
-    const remainingWeeks = Math.max(0, (LIFE_EXPECTANCY - validAge) * WEEKS_PER_YEAR)
-    
+    const validAge = Math.max(0, Math.min(age, LIFE_EXPECTANCY));
+    const weeksLived = validAge * WEEKS_PER_YEAR;
+    const remainingWeeks = Math.max(
+      0,
+      (LIFE_EXPECTANCY - validAge) * WEEKS_PER_YEAR,
+    );
+
     // Calculate proportional weeks for remaining time
-    const workWeeks = Math.round(remainingWeeks * WORK_PROPORTION)
-    const sleepWeeks = Math.round(remainingWeeks * SLEEP_PROPORTION)
-    const freeWeeks = Math.round(remainingWeeks * FREE_PROPORTION)
+    const workWeeks = Math.round(remainingWeeks * WORK_PROPORTION);
+    const sleepWeeks = Math.round(remainingWeeks * SLEEP_PROPORTION);
+    const freeWeeks = Math.round(remainingWeeks * FREE_PROPORTION);
 
     return {
       weeksLived,
@@ -41,57 +44,60 @@ export function LifeWeeksGrid() {
       sleepWeeks,
       freeWeeks,
       yearsRemaining: LIFE_EXPECTANCY - validAge,
-    }
-  }, [age])
+    };
+  }, [age]);
 
   const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10)
+    const value = parseInt(e.target.value, 10);
     if (!isNaN(value)) {
-      setAge(Math.max(0, Math.min(value, LIFE_EXPECTANCY)))
+      setAge(Math.max(0, Math.min(value, LIFE_EXPECTANCY)));
     } else if (e.target.value === "") {
-      setAge(0)
+      setAge(0);
     }
-  }
+  };
 
   // Generate grid dots
   const dots = useMemo(() => {
-    const result = []
-    const { weeksLived, workWeeks, sleepWeeks } = calculations
-    
+    const result = [];
+    const { weeksLived, workWeeks, sleepWeeks } = calculations;
+
     for (let i = 0; i < TOTAL_WEEKS; i++) {
-      let colorClass = ""
-      const isCurrentWeek = i === weeksLived
-      
+      let colorClass = "";
+      const isCurrentWeek = i === weeksLived;
+
       if (i < weeksLived) {
         // Past weeks - gray
-        colorClass = "bg-foreground/20"
+        colorClass = "bg-foreground/20";
       } else if (i < weeksLived + workWeeks) {
         // Work weeks - blue
-        colorClass = "bg-blue-500"
+        colorClass = "bg-blue-500";
       } else if (i < weeksLived + workWeeks + sleepWeeks) {
         // Sleep weeks - dark gray
-        colorClass = "bg-foreground/40"
+        colorClass = "bg-foreground/40";
       } else {
         // Free weeks - green
-        colorClass = "bg-emerald-500"
+        colorClass = "bg-emerald-500";
       }
-      
+
       result.push(
         <div
           key={i}
           className={`h-1.5 w-1.5 rounded-full ${colorClass} ${isCurrentWeek ? "ring-2 ring-accent ring-offset-1" : ""}`}
           title={isCurrentWeek ? "你現在在這裡" : undefined}
-        />
-      )
+        />,
+      );
     }
-    return result
-  }, [calculations])
+    return result;
+  }, [calculations]);
 
   return (
     <div className="mx-auto max-w-4xl">
       {/* Age Input */}
       <div className="mb-8 flex flex-col items-center gap-4">
-        <Label htmlFor="age-input" className="text-base font-medium text-foreground">
+        <Label
+          htmlFor="age-input"
+          className="text-base font-medium text-foreground"
+        >
           輸入你的年齡
         </Label>
         <div className="flex items-center gap-3">
@@ -130,7 +136,7 @@ export function LifeWeeksGrid() {
 
       {/* Dot Grid */}
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
-        <div 
+        <div
           className="mx-auto grid gap-0.5"
           style={{
             gridTemplateColumns: `repeat(${WEEKS_PER_YEAR}, minmax(0, 1fr))`,
@@ -140,7 +146,8 @@ export function LifeWeeksGrid() {
           {dots}
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground">
-          每一個點代表 1 週，共 {TOTAL_WEEKS.toLocaleString()} 週（假設壽命 {LIFE_EXPECTANCY} 歲）
+          每一個點代表 1 週，共 {TOTAL_WEEKS.toLocaleString()} 週（假設壽命{" "}
+          {LIFE_EXPECTANCY} 歲）
         </p>
       </div>
 
@@ -179,13 +186,16 @@ export function LifeWeeksGrid() {
             每天 24 小時中，8 小時工作、8 小時睡覺。
           </p>
           <p className="text-muted-foreground">
-            只剩下 <span className="font-semibold text-emerald-600">8 小時</span> 是真正屬於你的。
+            只剩下{" "}
+            <span className="font-semibold text-emerald-600">8 小時</span>{" "}
+            是真正屬於你的。
           </p>
         </div>
 
         <div className="mb-6 rounded-lg bg-emerald-500/5 p-4">
           <p className="mb-3 text-center font-medium text-foreground">
-            這 {calculations.freeWeeks.toLocaleString()} 週的自由時間，你本可以：
+            這 {calculations.freeWeeks.toLocaleString()}{" "}
+            週的自由時間，你本可以：
           </p>
           <ul className="mx-auto max-w-md space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
@@ -210,14 +220,16 @@ export function LifeWeeksGrid() {
         <div className="text-center">
           <p className="mb-2 text-foreground">
             財富自由的意義，就是讓
-            <span className="font-semibold text-emerald-600">綠色的部分變多</span>。
+            <span className="font-semibold text-emerald-600">
+              綠色的部分變多
+            </span>
+            。
           </p>
           <p className="text-sm text-muted-foreground">
-            把工作從「生存必須」變成「自由選擇」，
-            把每天的 8 小時還給自己。
+            把工作從「生存必須」變成「自由選擇」， 把每天的 8 小時還給自己。
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

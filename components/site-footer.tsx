@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 export function SiteFooter() {
   return (
@@ -10,35 +10,36 @@ export function SiteFooter() {
               財富自由計算器
             </h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              用數學規劃你的財務自由之路。
-              讓複利的力量幫助你實現人生的選擇權。
+              用數學規劃你的財務自由之路。 讓複利的力量幫助你實現人生的選擇權。
             </p>
           </div>
-          
+
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-foreground">快速連結</h4>
+            <h4 className="mb-4 text-sm font-semibold text-foreground">
+              快速連結
+            </h4>
             <nav className="flex flex-col gap-2">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 首頁
               </Link>
-              <Link 
-                href="/calculator" 
+              <Link
+                href="/calculator"
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 計算器
               </Link>
-              <Link 
-                href="/methodology" 
+              <Link
+                href="/methodology"
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 計算原理
               </Link>
             </nav>
           </div>
-          
+
           <div>
             <h4 className="mb-4 text-sm font-semibold text-foreground">關於</h4>
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -47,11 +48,11 @@ export function SiteFooter() {
             </p>
           </div>
         </div>
-        
+
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} 財富自由計算器. 保留所有權利.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

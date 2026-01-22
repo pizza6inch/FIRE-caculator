@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 export function SiteHeader() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -19,32 +19,32 @@ export function SiteHeader() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 md:flex">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             首頁
           </Link>
-          <Link 
-            href="/calculator" 
+          <Link
+            href="/calculator"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             FI 計算器
           </Link>
-          <Link 
-            href="/savings-calculator" 
+          <Link
+            href="/savings-calculator"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             儲蓄計算器
           </Link>
-          <Link 
-            href="/expense-calculator" 
+          <Link
+            href="/expense-calculator"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             支出計算器
           </Link>
-          <Link 
-            href="/methodology" 
+          <Link
+            href="/methodology"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             計算原理
@@ -64,7 +64,11 @@ export function SiteHeader() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
@@ -72,36 +76,36 @@ export function SiteHeader() {
       {mobileMenuOpen && (
         <div className="border-t border-border md:hidden">
           <nav className="flex flex-col gap-2 px-4 py-4">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => setMobileMenuOpen(false)}
             >
               首頁
             </Link>
-            <Link 
-              href="/calculator" 
+            <Link
+              href="/calculator"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => setMobileMenuOpen(false)}
             >
               FI 計算器
             </Link>
-            <Link 
-              href="/savings-calculator" 
+            <Link
+              href="/savings-calculator"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => setMobileMenuOpen(false)}
             >
               儲蓄計算器
             </Link>
-            <Link 
-              href="/expense-calculator" 
+            <Link
+              href="/expense-calculator"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => setMobileMenuOpen(false)}
             >
               支出計算器
             </Link>
-            <Link 
-              href="/methodology" 
+            <Link
+              href="/methodology"
               className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -116,5 +120,5 @@ export function SiteHeader() {
         </div>
       )}
     </header>
-  )
+  );
 }

@@ -1,12 +1,13 @@
-import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { SavingsCalculator } from "@/components/savings-calculator"
+import type { Metadata } from "next";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { SavingsCalculator } from "@/components/savings-calculator";
 
 export const metadata: Metadata = {
   title: "儲蓄計算器 | 財富自由計算器",
-  description: "給定財富自由目標金額，反推在不同年數內每年、每月、每週、每天需要存多少錢。使用複利模型計算你的儲蓄計劃。",
-}
+  description:
+    "給定財富自由目標金額，反推在不同年數內每年、每月、每週、每天需要存多少錢。使用複利模型計算你的儲蓄計劃。",
+};
 
 export default function SavingsCalculatorPage() {
   return (
@@ -32,5 +33,5 @@ export default function SavingsCalculatorPage() {
       </main>
       <SiteFooter />
     </div>
-  )
+  );
 }
